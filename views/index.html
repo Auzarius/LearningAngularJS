@@ -81,6 +81,7 @@
             </table>
             <br/>
             <button type="submit" class="btn btn-primary btn-block" ng-disabled="outboundForm.$invalid">Submit<span ng-show="outboundForm.$invalid"> (Moisture & Test Weight are required)</span></button>
+            <br/>
             <input type="button" class="btn btn-danger btn-block" value="Cancel" name="Cancel" ng-click="cancelClick()">      
         </form>
         </div>
@@ -124,6 +125,7 @@
                 <p ng-show="inboundForm.weight.$error.required && !inboundForm.weight.$pristine" class="help-block alert alert-info">This is a required field, it cannot be left blank.</p>
                 <br/>
                 <button type="submit" class="btn btn-primary btn-block" ng-disabled="inboundForm.$invalid">Submit</button>
+                <br/>
                 <input type="button" class="btn btn-danger btn-block" value="Cancel" name="Cancel" ng-click="cancelClick()"> 
             </form>
         </div>
@@ -178,6 +180,7 @@
                    
                 <br/>
                 <button type="submit" class="btn btn-primary btn-block" ng-disabled="FieldForm.$invalid">Submit</button>
+                <br/>
                 <input type="button" class="btn btn-danger btn-block" value="Cancel" name="Cancel" ng-click="cancelClick()">
             </form>
         </div>
@@ -214,6 +217,7 @@
             
             <br/>
             <input type="button" class="btn btn-primary btn-block" value="Save" name="SaveInbound" ng-click= "saveInboundClick()">
+            <br/>
             <input type="button" class="btn btn-danger btn-block" value="Cancel" name="Cancel" ng-click="cancelClick()">                   
         </div>
                 
@@ -263,6 +267,7 @@
             </table>  
             <br/>
             <input type="button" class="btn btn-primary btn-block" value="Save" name="SaveOutbound" ng-click= "saveOutboundClick()">
+            <br/>
             <input type="button" class="btn btn-danger btn-block" value="Cancel" name="Cancel" ng-click="cancelClick()">
         </div>     
       

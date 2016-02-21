@@ -47,8 +47,10 @@ gulp.task('sass', function() {
 gulp.task('mini-css', function() {
 	return gulp.src('./dev/css/**/*.css')
 		.pipe(plumber())
+		.pipe(sourcemaps.init())
 		.pipe(cssnano())
 		.pipe(rename({extname: ".min.css"}))
+		.pipe(sourcemaps.write("."))
 		.pipe(gulp.dest('./dist/css'))
 		.pipe(connect.reload());
 });
