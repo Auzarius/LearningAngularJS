@@ -25,7 +25,8 @@
             <div class="container">
                 Miller Farms
             </div>
-        </div>      
+        </div>
+              
         <div id="Home" ng-show= "Mode == 'home' || Mode == 'outbound'">          
 			<div class="form-group form-heading" >
                 <select ng-options="ticket.Truck for ticket in OpenTickets" ng-model="selectedOpenTicket" ng-focus="Nap(3000)" ng-change="LoadTicket()">

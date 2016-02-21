@@ -1,4 +1,3 @@
-
 var app = angular.module('FarmApp', []);
 
 "use-strict";
@@ -23,14 +22,14 @@ app.controller('DataController', ["$scope", function ($scope) {
     //Button Click Methods For Pages
     
     $scope.cancelClick = function () {
-        $scope.Ticket = [];
-        $scope.selectedOpenTicket = [];
+        $scope.Ticket = new Object();
+        $scope.selectedOpenTicket = new Object();
         $scope.Mode = "home";
     };
     
 
     $scope.newTicketClick = function () {
-        $scope.Ticket = [];
+        $scope.Ticket = new Object();
         $scope.Mode = "inbound";
         UpdateWeight();
     };
@@ -38,7 +37,7 @@ app.controller('DataController', ["$scope", function ($scope) {
     $scope.inboundClick = function (isValid) {
         if(isValid)
         {
-	    $scope.Ticket.Splits1 = 100;
+      $scope.Ticket.Splits1 = 100;
             $scope.Mode = "fields";
             UpdateWeight();
         }
@@ -50,7 +49,7 @@ app.controller('DataController', ["$scope", function ($scope) {
             UpdateWeight();
             $scope.Ticket.InWeight = $scope.CurrentWeight;
             $scope.Ticket.Completed = false;
-            $scope.Ticket.InDate = new Date().toLocaleDateString();
+            $scope.Ticket.InDate = new Date().toUTCString();
             
             //Set Base Field and Splits based on Input 1 which is required
             $scope.Ticket.Field = $scope.Ticket.Field1.Name;
@@ -98,7 +97,7 @@ app.controller('DataController', ["$scope", function ($scope) {
             $scope.Ticket.Net = $scope.Ticket.Gross - $scope.Ticket.Tare;
 
             $scope.Mode = "confirmoutbound";
-            $scope.Ticket.OutDate = new Date().toLocaleDateString();
+            $scope.Ticket.OutDate = new Date().toUTCString();
             $scope.Ticket.Completed = true;
         }
     };
@@ -106,7 +105,7 @@ app.controller('DataController', ["$scope", function ($scope) {
     $scope.saveInboundClick = function () {
         $scope.Ticket.InWeight = $scope.CurrentWeight;
         AddTicket();
-	$scope.Message = "Please Proceed To Loading/Unloading";
+        $scope.Message = "Please Proceed To Loading/Unloading";
         $scope.Mode = "thanks";
         refresh();
     };
@@ -117,7 +116,7 @@ app.controller('DataController', ["$scope", function ($scope) {
     }
 
     $scope.saveOutboundClick = function () {
-        UpdateTicket();
+        SetTicketNumber();
         $scope.Message = "Ticket Saved";
         $scope.Mode = "thanks";
         refresh();
@@ -137,15 +136,18 @@ app.controller('DataController', ["$scope", function ($scope) {
         Scales.GetGross("A", function(result) {$scope.CurrentWeight = result; }, function(msg) { gross = 0;});
     }
     
+
+
+
     function loadOpenTickets() {
-        Database.GetData("TruckIO.sdf", "SELECT * FROM [Ticket] WHERE [Completed] = 0",
-		function(result) 
-		{	
+        Database.GetData("MillerFarms.sdf", "SELECT * FROM [Ticket] WHERE [Completed] = 0",
+    function(result) 
+    { 
             $scope.OpenTickets = JSON.parse(result);
             $scope.mode = "home"; 
-		},
-		function(msg) { alert(msg.getErrorMessage()); }
-		)
+    },
+    function(msg) { alert(msg.getErrorMessage()); }
+    )
     }
     
     function RemoveTicketFromList(){
@@ -168,52 +170,52 @@ app.controller('DataController', ["$scope", function ($scope) {
         Message = new RemObjects.SDK.JSONMessage();
         Database = new DatabaseService(Channel, Message);
         Scales = new ScaleService(Channel, Message);
-        
+        Printer = new PrintService(Channel, Message);
+  
        
-        Database.GetData("TruckIO.sdf", "SELECT * FROM [Ticket] WHERE [Completed] = 0",
-    		function(result) 
-    		{	
-                $scope.OpenTickets = JSON.parse(result);
-    		},
-    		function(msg) { alert(msg.getErrorMessage()); }
-    		)
-           
-        Database.GetData("TruckIO.sdf", "SELECT * FROM [Commodity]",
-    		function(result) 
-    		{	
-                $scope.Commodities = JSON.parse(result);
-    		},
-    		function(msg) { alert(msg.getErrorMessage()); }
-    		);
-        
-        Database.GetData("TruckIO.sdf", "SELECT * FROM [Farm]",
-    		function(result) 
-    		{	
-                $scope.Farms = JSON.parse(result);
-    		},
-    		function(msg) { alert(msg.getErrorMessage()); }
-    		);
+    Database.GetData("MillerFarms.sdf", "SELECT * FROM [Ticket] WHERE [Completed] = 0",
+    function(result) 
+    { 
+            $scope.OpenTickets = JSON.parse(result);
+    },
+    function(msg) { alert(msg.getErrorMessage()); }
+    )
+       
+    Database.GetData("MillerFarms.sdf", "SELECT * FROM [Commodity]",
+    function(result) 
+    { 
+            $scope.Commodities = JSON.parse(result);
+    },
+    function(msg) { alert(msg.getErrorMessage()); }
+    );
+    
+    Database.GetData("MillerFarms.sdf", "SELECT * FROM [Farm]",
+    function(result) 
+    { 
+            $scope.Farms = JSON.parse(result);
+    },
+    function(msg) { alert(msg.getErrorMessage()); }
+    );
 
-        Database.GetData("TruckIO.sdf", "SELECT * FROM [Field]",
-    		function(result) 
-    		{	
-                $scope.Fields = JSON.parse(result);
-    		},
-    		function(msg) { alert(msg.getErrorMessage()); }
-    		);
+    Database.GetData("MillerFarms.sdf", "SELECT * FROM [Field]",
+    function(result) 
+    { 
+            $scope.Fields = JSON.parse(result);
+    },
+    function(msg) { alert(msg.getErrorMessage()); }
+    );
 
-        Database.GetData("TruckIO.sdf", "SELECT * FROM [Truck]",
-    		function(result) 
-    		{	
-                $scope.Trucks = JSON.parse(result);
-    		},
-    		function(msg) { alert(msg.getErrorMessage()); }
-    		);    
+    Database.GetData("MillerFarms.sdf", "SELECT * FROM [Truck]",
+    function(result) 
+    { 
+            $scope.Trucks = JSON.parse(result);
+    },
+    function(msg) { alert(msg.getErrorMessage()); }
+    );    
          
     }
     
-    function UpdateWeight()
-      {
+    function UpdateWeight(){
         try
         {
           var str = "{0} {1}";
@@ -227,8 +229,133 @@ app.controller('DataController', ["$scope", function ($scope) {
     function UpdateTicket()
       {
         try
+        {            
+          Database.AppendUpdate("MillerFarms.sdf","DD2050_Farm_MillerFarms.BusinessObjects.Models.Ticket",JSON.stringify(new OUTscaleticket()),
+                               function(){PrintTicket();},
+                               function(){});  
+        } catch (e) {
+          alert(e);
+        }  
+      }
+    
+    function INscaleticket()
+    {
+       this.Oid = guid();
+       this.Farm = $scope.Ticket.Farm.Name;
+       this.Field = $scope.Ticket.Field;
+       this.Truck = $scope.Ticket.Truck.Name;
+       this.IsActive = true;
+       this.Completed = false;
+       this.Splits = $scope.Ticket.Splits.toString();
+       this.Direction = $scope.Ticket.Direction;
+       this.Commodity = $scope.Ticket.Commodity.Name;
+       this.StandardMoisture = $scope.Ticket.Commodity.StandardMoisture;
+       this.Inbound = $scope.Ticket.InWeight.toString();
+       this.InboundTimeDate = $scope.Ticket.InDate;
+        
+        //Add Moisture            
+        if(!angular.isUndefined($scope.Ticket.Moisture))
         {
-         
+          this.Moisture = $scope.Ticket.Moisture;
+        }
+        
+        //Add Test Weight        
+        if(!angular.isUndefined($scope.Ticket.TestWeight))
+        {
+          this.TestWeight = $scope.Ticket.TestWeight;
+        }
+        
+    }
+    
+    function OUTscaleticket()
+    {
+       this.Oid = $scope.Ticket.Oid;
+       this.Farm = $scope.Ticket.Farm;
+       this.Field = $scope.Ticket.Field;
+       this.Truck = $scope.Ticket.Truck;
+       this.Splits = $scope.Ticket.Splits.toString();
+       this.Direction = $scope.Ticket.Direction;
+       this.Commodity = $scope.Ticket.Commodity;
+       this.StandardMoisture = $scope.Ticket.StandardMoisture;
+       this.Inbound = $scope.Ticket.InWeight.toString();
+       this.InboundTimeDate = $scope.Ticket.InboundTimeDate;
+       this.IsActive = true;
+       this.Completed = true;
+       this.OutboundTimeDate = $scope.Ticket.OutDate;
+       this.Outbound = $scope.Ticket.OutWeight.toString();
+       this.Moisture = $scope.Ticket.Moisture;
+       this.TestWeight = $scope.Ticket.TestWeight;
+       this.TicketNumber = $scope.Ticket.TicketNumber.toString();
+    }
+    
+    function AddTicket()
+      {
+        try
+        { 
+            
+        var ticket = new INscaleticket();
+            
+        Database.AppendUpdate("MillerFarms.sdf","DD2050_Farm_MillerFarms.BusinessObjects.Models.Ticket",JSON.stringify(ticket),
+                               function(){},
+                               function(){});  
+        } catch (e) {
+          alert(e);
+        }  
+      }
+     
+    function guid() 
+    {
+          function _p8(s) {
+              var p = (Math.random().toString(16)+"000000000").substr(2,8);
+              return s ? "-" + p.substr(0,4) + "-" + p.substr(4,4) : p ;
+          }
+          return _p8() + _p8(true) + _p8(true) + _p8();
+    }
+    
+    function refresh() {
+
+        setTimeout(function () {
+            $scope.mode = "home";
+            this.location.reload()
+        }, 2000);
+    }
+    
+    function SetTicketNumber()
+    {
+        var SQLStatement = "";
+        
+        if($scope.Ticket.Commodity === "CORN" || $scope.Ticket.Commodity === "WHEAT" || $scope.Ticket.Commodity === "SOYBEAN")
+        {
+            if($scope.Ticket.Direction === "Inbound")
+            {
+                SQLStatement = "SELECT * FROM [Sequencer] WHERE [SeqName] = 'InboundCommodity'";
+            }
+            else
+            {
+                SQLStatement = "SELECT * FROM [Sequencer] WHERE [SeqName] = 'OutboundCommodity'";
+            }
+        }
+        else
+        {
+            SQLStatement = "SELECT * FROM [Sequencer] WHERE [SeqName] = 'Other'";
+        }
+        
+        Database.GetData("MillerFarms.sdf", SQLStatement,
+      function(result) 
+      {
+                $scope.Sequences = JSON.parse(result);
+                $scope.Sequence = $scope.Sequences[0];
+                var number = $scope.Sequence.SeqNumber;
+                $scope.Ticket.TicketNumber = $scope.Sequence.SeqNumber + 1;
+                UpdateTicket();
+                UpdateSequence();
+      },
+      function(msg) { alert("Failed To Set Ticket Number"); }
+      );                
+    }
+    
+    function UpdateSequence()
+    {
         //Initialize The Keys and Paramaters
           var keys = new Array();
           var params = new Array();
@@ -238,209 +365,49 @@ app.controller('DataController', ["$scope", function ($scope) {
 
           param.Name = "Oid";
           param.DataType = "System.Guid";
-          param.Value = $scope.Ticket.Oid;
-            
+          param.Value = $scope.Sequence.Oid;
+                  
           keys.push(param);
             
-        //Add Outbound Time
+        //Add Seq Number
           param = new Parameter();
 
-          param.Name = "OutboundTimeDate";
-          param.DataType = "System.DateTime";
-          param.Value = $scope.Ticket.OutDate;
-
+          param.Name = "SeqNumber";
+          param.DataType = "System.Int32";
+          param.Value = $scope.Ticket.TicketNumber.toString();
+                  
           params.push(param);
-            
-          param = new Parameter();
-        //Toggle Completed Boolean
-            
-          param.Name = "Completed";
-          param.DataType = "System.Boolean";
-          param.Value = "true";
-        
-          params.push(param);
-            
-        //Add Outbound Weight
-            
-          param = new Parameter();
-
-          param.Name = "Outbound";
-          param.DataType = "System.Double";
-          param.Value = $scope.Ticket.OutWeight.toString();
-
-          params.push(param);
-
-        //Add Moisture
-            
-          param = new Parameter();
-
-          param.Name = "Moisture";
-          param.DataType = "System.Double";
-          param.Value = $scope.Ticket.Moisture;
-
-          params.push(param);
-            
-        //Add Test Weight
-         
-          param = new Parameter();
-
-          param.Name = "TestWeight";
-          param.DataType = "System.Double";
-          param.Value = $scope.Ticket.TestWeight;
-
-          params.push(param);
-            
-        Database.UpdateRecords("TruckIO.sdf", "Ticket", params, keys,
+               
+        Database.UpdateRecords("MillerFarms.sdf", "Sequencer", params, keys,
               function(result) 
               { 
-                  var response = result.toObject();
               }, 
-              function(msg) { alert("Fail"); });
-            
-        } catch (e) {
-          alert(e);
-        }  
-      }
+              function(msg) {});
+
+    }
     
-    function AddTicket()
+    function PrintTicket(){
+      try
       {
-        try
-        {
           var params = new Array();
 
+        //Add GUID Key
           var param = new Parameter();
 
           param.Name = "Oid";
           param.DataType = "System.Guid";
-          param.Value = guid();
+          param.Value = $scope.Ticket.Oid;
 
           params.push(param);
-            
-          param = new Parameter();
-
-          param.Name = "Completed";
-          param.DataType = "System.Boolean";
-          param.Value = "false";
-        
-          params.push(param);
-
-          param = new Parameter();
-
-          param.Name = "Truck";
-          param.DataType = "System.String";
-          param.Value = $scope.Ticket.Truck.Name;
-
-          params.push(param);
-
-          param = new Parameter();
-
-          param.Name = "Farm";
-          param.DataType = "System.String";
-          param.Value = $scope.Ticket.Farm.Name;
-            
-          params.push(param);
-            
-          param = new Parameter();
-            
-          param.Name = "Field";
-          param.DataType = "System.String";
-          param.Value = $scope.Ticket.Field;
-
-          params.push(param);
-            
-          param = new Parameter();
-            
-          param.Name = "Splits";
-          param.DataType = "System.String";
-          param.Value = $scope.Ticket.Splits;
-
-          params.push(param);
-            
-          param = new Parameter();
-            
-          param.Name = "Direction";
-          param.DataType = "System.String";
-          param.Value = $scope.Ticket.Direction;
-
-          params.push(param);
-            
-          param = new Parameter();
-            
-          param.Name = "Commodity";
-          param.DataType = "System.String";
-          param.Value = $scope.Ticket.Commodity.Name;
-
-          params.push(param);
-            
-          param = new Parameter();
-            
-          param.Name = "Inbound";
-          param.DataType = "System.Double";
-          param.Value = $scope.Ticket.InWeight.toString();
-
-          params.push(param);
-            
-          param = new Parameter();
-            
-          param.Name = "InboundTimeDate";
-          param.DataType = "System.DateTime";
-          param.Value = $scope.Ticket.InDate;
-
-          params.push(param);
-            
-        //Add Moisture
-            
-        if(!angular.isUndefined($scope.Ticket.Moisture))
-        {
-          param = new Parameter();
-
-          param.Name = "Moisture";
-          param.DataType = "System.Double";
-          param.Value = $scope.Ticket.Moisture;
-
-          params.push(param);
-        }
-            
-        //Add Test Weight
-            
-        if(!angular.isUndefined($scope.Ticket.TestWeight))
-        {
-          param = new Parameter();
-
-          param.Name = "TestWeight";
-          param.DataType = "System.Double";
-          param.Value = $scope.Ticket.TestWeight;
-
-          params.push(param);
-        }
-         
-          Database.AppendRecord("TruckIO.sdf", "Ticket", params, 
-              function(result) 
-              { 
-                  var response = result.toObject();
-              }, 
-              function(msg) { alert("Fail"); });
-
-        } catch (e) {
-          alert(e);
-        }  
+                  
+          Printer.PrintBusinessObject("MillerFarms.sdf","DD2050_Farm_MillerFarms.BusinessObjects.Models.Ticket", params, "\\NAND_Flash\\Extern\\TicketFormats\\OutboundFromWeb.txt",function(result){alert(result);},function(){})
       }
-     
-        function guid() {
-          function _p8(s) {
-              var p = (Math.random().toString(16)+"000000000").substr(2,8);
-              return s ? "-" + p.substr(0,4) + "-" + p.substr(4,4) : p ;
+          catch(err)
+          {
+            alert(err.Message);
           }
-          return _p8() + _p8(true) + _p8(true) + _p8();
-      }
+    }
     
-    function refresh() {
-
-        setTimeout(function () {
-            $scope.mode = "home";
-            this.location.reload()
-        }, 2000);
-}
-
-
+    
 }]);
+
