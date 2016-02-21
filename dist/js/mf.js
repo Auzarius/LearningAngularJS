@@ -1,7 +1,7 @@
 var app = angular.module('FarmApp', []);
 
 "use-strict";
-app.controller('DataController', function ($scope) {
+app.controller('DataController', ["$scope", function ($scope) {
     
     //REM Objects Variables
     var Channel;
@@ -409,4 +409,5 @@ app.controller('DataController', function ($scope) {
     }
     
     
-});
+}]);
+

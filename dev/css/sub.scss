@@ -1,3 +1,8 @@
+%text-alias {
+	-webkit-font-smoothing: antialiased;
+	text-shadow: rgba(0,0,0,.6) 0 0 1px;
+}
+
 %textShadow {
 	-webkit-font-smoothing: antialiased;
 	text-shadow: rgba(0,0,0,.01) 0 0 1px;
@@ -22,8 +27,119 @@
 		margin-bottom: 0em;
 		min-height: 2em;
 	}
+	
+	@media screen and (min-width: 401px) and (max-width: 500px) {
+		font-size: 50px;
+	}
 }
 
 html {
 	background-color: #F7F7F7;
+}
+
+table {
+	width: 100%;
+	& tr {
+		& th, td {
+			width: 50%;
+			padding: 0.8em;
+			border-bottom: 1px solid #CCC;
+		}
+		
+		& th {
+			border-left: 1px solid #CCC;
+		}
+		
+		& td {
+			border-right: 1px solid #CCC;
+		}
+		
+		&:nth-child(odd) {
+			background-color: #EEE;
+		}
+		
+		&:nth-child(even) {
+			background-color: #DDD;
+		}
+	}
+	
+	& tr:first-child {
+		& th, td {
+			border-top: 1px solid #CCC;
+		}
+	}
+}
+
+select {
+	padding: 0.8em;
+	text-align: center;
+	
+	&.sel-block {
+		width: 100%;
+	}
+	
+	&[disabled = "true"] {
+		color:#aaa;
+		border-color:#aaa;
+	}
+}
+
+#Outbound {
+	& input[type = "text"] {
+		padding: 2px;
+	}
+}
+
+#NewTicket, #SetFieldDistribution {
+	& input[type = "text"] {
+		padding: 0.6em;
+		padding-left: 1em;
+	}
+	
+	& select, input[type="text"] {
+		display: block;
+		margin-left: 1em;
+	}
+}
+
+p {
+	&.alert {
+		&.alert-info {
+			color: white;
+			@extend %text-alias;
+			margin-bottom: 0;
+		}
+	}
+}
+
+body {
+	padding-bottom: 1em;
+}
+
+form {
+	& label {
+		font-size: 17px;
+		padding-top: .5em;
+	}
+}
+
+.mf-field-group {
+	& .mf-field:nth-child(odd) {
+		background-color: #DDD;
+	}
+	
+	& .mf-field:nth-child(even) {
+		background-color: #F8F8F8;
+	}
+	
+	& .mf-field {
+		padding: 1em;
+		border: 1px solid #CCC;
+		
+		& select, input[type="text"] {
+			position: relative;
+			left: -0.6em;
+			width: 97%;
+		}
+	}
 }

@@ -28,7 +28,7 @@ gulp.task('annotate', function() {
 		.pipe(plumber())
 		.pipe(sourcemaps.init())
 		.pipe(ngAnnotate())
-		.pipe(concat('millerfarms.js'))
+		.pipe(concat('mf.js'))
 		.pipe(gulp.dest('./dist/js/'))
 		.pipe(uglify())
 		.pipe(rename({ extname: ".min.js" }))
