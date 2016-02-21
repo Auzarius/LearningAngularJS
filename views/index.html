@@ -7,20 +7,25 @@
         <base href="/">
         <title>Brechbuhler Scales, Inc.</title>
         <meta name="description" content="Miller Farms">
-        <link rel="stylesheet" href="css/main.css"/> 
-        <link rel="stylesheet" href="css/bootstrap.min.css">
+        <link rel="stylesheet" href="dist/css/main.min.css"/>
+        <link rel="stylesheet" href="dist/css/sub.min.css"/>
+        <link rel="stylesheet" href="lib/css/bootstrap.min.css">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <script src="scripts/RemObjectsSDK.js"></script>
-        <script src="scripts/ScaleLibrary_intf.js"></script>
-        <script src="scripts/CommonLibrary_intf.js"></script>
-        <script src="scripts/angular.min.js"></script>
-        <script src="scripts/jquery-1.9.1.min.js"></script>
-        <script src="scripts/bootstrap.min.js"></script>
-        <script src="ngapp/app.js"></script>
-        <script src="scripts/ui.js"></script>
+        <script src="lib/js/RemObjectsSDK.js"></script>
+        <script src="lib/js/ScaleLibrary_intf.js"></script>
+        <script src="lib/js/CommonLibrary_intf.js"></script>
+        <script src="lib/js/angular.min.js"></script>
+        <script src="lib/js/jquery-1.9.1.min.js"></script>
+        <script src="lib/js/bootstrap.min.js"></script>
+        <script src="dist/js/millerfarms.min.js"></script>
+        <script src="lib/js/ui.js"></script>
     </head>
     <body ng-app="FarmApp" ng-controller="DataController as Data" ng-init="init()">
-              
+        <div class="mf-header">
+            <div class="container">
+                Miller Farms
+            </div>
+        </div>      
         <div id="Home" ng-show= "Mode == 'home' || Mode == 'outbound'">          
 			<div class="form-group form-heading" >
                 <select ng-options="ticket.Truck for ticket in OpenTickets" ng-model="selectedOpenTicket" ng-focus="Nap(3000)" ng-change="LoadTicket()">

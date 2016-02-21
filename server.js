@@ -11,11 +11,11 @@ app.use(function (req,res,next) {
 });
 
 // setup the static file directory to make pulling with angular easier
-app.use(express.static(__dirname + '/public'));
+// app.use(express.static(__dirname + '/public'));
 
 // setup node to use the angular index page as the base route
 app.get('*', function (req, res) {
-	res.sendFile(path.join(__dirname + '/public/views/index.html'));
+	res.sendFile(path.join(__dirname + '/views/index.html'));
 });
 
 app.on('error', function (err) {

@@ -170,45 +170,45 @@ app.controller('DataController', function ($scope) {
         Scales = new ScaleService(Channel, Message);
         
        
-    Database.GetData("TruckIO.sdf", "SELECT * FROM [Ticket] WHERE [Completed] = 0",
-		function(result) 
-		{	
-            $scope.OpenTickets = JSON.parse(result);
-		},
-		function(msg) { alert(msg.getErrorMessage()); }
-		)
-       
-    Database.GetData("TruckIO.sdf", "SELECT * FROM [Commodity]",
-		function(result) 
-		{	
-            $scope.Commodities = JSON.parse(result);
-		},
-		function(msg) { alert(msg.getErrorMessage()); }
-		);
-    
-    Database.GetData("TruckIO.sdf", "SELECT * FROM [Farm]",
-		function(result) 
-		{	
-            $scope.Farms = JSON.parse(result);
-		},
-		function(msg) { alert(msg.getErrorMessage()); }
-		);
+        Database.GetData("TruckIO.sdf", "SELECT * FROM [Ticket] WHERE [Completed] = 0",
+    		function(result) 
+    		{	
+                $scope.OpenTickets = JSON.parse(result);
+    		},
+    		function(msg) { alert(msg.getErrorMessage()); }
+    		)
+           
+        Database.GetData("TruckIO.sdf", "SELECT * FROM [Commodity]",
+    		function(result) 
+    		{	
+                $scope.Commodities = JSON.parse(result);
+    		},
+    		function(msg) { alert(msg.getErrorMessage()); }
+    		);
+        
+        Database.GetData("TruckIO.sdf", "SELECT * FROM [Farm]",
+    		function(result) 
+    		{	
+                $scope.Farms = JSON.parse(result);
+    		},
+    		function(msg) { alert(msg.getErrorMessage()); }
+    		);
 
-    Database.GetData("TruckIO.sdf", "SELECT * FROM [Field]",
-		function(result) 
-		{	
-            $scope.Fields = JSON.parse(result);
-		},
-		function(msg) { alert(msg.getErrorMessage()); }
-		);
+        Database.GetData("TruckIO.sdf", "SELECT * FROM [Field]",
+    		function(result) 
+    		{	
+                $scope.Fields = JSON.parse(result);
+    		},
+    		function(msg) { alert(msg.getErrorMessage()); }
+    		);
 
-    Database.GetData("TruckIO.sdf", "SELECT * FROM [Truck]",
-		function(result) 
-		{	
-            $scope.Trucks = JSON.parse(result);
-		},
-		function(msg) { alert(msg.getErrorMessage()); }
-		);    
+        Database.GetData("TruckIO.sdf", "SELECT * FROM [Truck]",
+    		function(result) 
+    		{	
+                $scope.Trucks = JSON.parse(result);
+    		},
+    		function(msg) { alert(msg.getErrorMessage()); }
+    		);    
          
     }
     

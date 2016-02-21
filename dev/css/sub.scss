@@ -1,0 +1,29 @@
+%textShadow {
+	-webkit-font-smoothing: antialiased;
+	text-shadow: rgba(0,0,0,.01) 0 0 1px;
+	text-shadow: 2px 0px 2px #333;
+	text-shadow: 2px 0px 2px rgb(40,40,40);
+}
+
+.mf-header {
+	font-size: 55px;
+	min-height: 3em;
+	width: 100%;
+	background: linear-gradient(to right, #62B268, #55C0DB);
+	padding: 1em;
+	margin-bottom: 1em;
+	text-align: center;
+	color: white;
+	@extend %textShadow;
+	
+	@media screen and (max-width: 400px) {
+		font-size: 40px;
+		padding: 0.5em;
+		margin-bottom: 0em;
+		min-height: 2em;
+	}
+}
+
+html {
+	background-color: #F7F7F7;
+}
