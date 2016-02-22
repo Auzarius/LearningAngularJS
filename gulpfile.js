@@ -41,7 +41,6 @@ gulp.task('sass', function() {
 	return sass(['./dev/css/**/*.scss', './dev/css/**/*.sass'])
 		.pipe(plumber())
 		.pipe(gulp.dest('./dev/css'))
-		.pipe(connect.reload());
 });
 
 gulp.task('mini-css', function() {
