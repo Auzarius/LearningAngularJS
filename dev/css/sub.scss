@@ -116,6 +116,7 @@ select {
 	& select, input[type="text"] {
 		display: block;
 		margin-left: 1em;
+		width: calc(100% - 32px);
 	}
 }
 
