@@ -113,16 +113,14 @@
                         <option value="" disabled>Select Farm</option>
                     </select>
                 </div>
-                <div class="form-group has-feedback" ng-class="[ inboundForm.moisture.$invalid && !inboundForm.moisture.$pristine ? 'has-error' : '', inboundForm.moisture.$valid && !inboundForm.moisture.$pristine ? 'has-success' : '' ]">
+                <div class="form-group">
                     <label for="moisture" class="col-xs-4">Moisture</label>
-                    <input class="col-xs-11" type="text" name="moisture" ng-model="Ticket.Moisture" required />
+                    <input class="col-xs-11" type="text" name="moisture" ng-model="Ticket.Moisture" />
                 </div>
-                <p ng-show="inboundForm.moisture.$error.required && !inboundForm.moisture.$pristine" class="help-block alert alert-info">This is a required field, it cannot be left blank.</p>
-                <div class="form-group has-feedback" ng-class="[ inboundForm.weight.$invalid && !inboundForm.weight.$pristine ? 'has-error' : '', inboundForm.weight.$valid && !inboundForm.weight.$pristine ? 'has-success' : '' ]">
+                <div class="form-group">
                     <label for="weight" class="col-xs-4">Test Weight</label>
-                    <input class="col-xs-11" type="text" name="weight" ng-model="Ticket.TestWeight" required />
+                    <input class="col-xs-11" type="text" name="weight" ng-model="Ticket.TestWeight" />
                 </div>
-                <p ng-show="inboundForm.weight.$error.required && !inboundForm.weight.$pristine" class="help-block alert alert-info">This is a required field, it cannot be left blank.</p>
                 <br/>
                 <button type="submit" class="btn btn-primary btn-block" ng-disabled="inboundForm.$invalid">Submit</button>
                 <br/>

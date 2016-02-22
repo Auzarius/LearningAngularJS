@@ -18,7 +18,10 @@ app.controller('DataController', function ($scope) {
     $scope.Message = "";
     $scope.CurrentWeight = 0.00;
     $scope.Directions = ['Inbound','Outbound'];
-      
+    
+    var getRandomWeight = function (min, max) {
+        return Math.floor(Math.random()*(max-min+1)+min);
+    };
     //Button Click Methods For Pages
     
     $scope.cancelClick = function () {
@@ -83,8 +86,10 @@ app.controller('DataController', function ($scope) {
         
         if(isValid)
         {
-            $scope.Ticket.OutWeight = $scope.CurrentWeight;
-            $scope.Ticket.InWeight = $scope.Ticket.Inbound;
+            //$scope.Ticket.OutWeight = $scope.CurrentWeight;
+            $scope.Ticket.OutWeight = parseInt(50000 + getRandomWeight(0,250) * 20);
+            //$scope.Ticket.InWeight = $scope.Ticket.Inbound;
+            $scope.Ticket.InWeight = parseInt(30000 + getRandomWeight(0,250) * 20);
 
             if ($scope.Ticket.InWeight > $scope.Ticket.OutWeight) {
                 $scope.Ticket.Gross = $scope.Ticket.InWeight;
@@ -103,7 +108,8 @@ app.controller('DataController', function ($scope) {
     };
 
     $scope.saveInboundClick = function () {
-        $scope.Ticket.InWeight = $scope.CurrentWeight;
+        //$scope.Ticket.InWeight = $scope.CurrentWeight;
+        $scope.Ticket.InWeight = 30000 + getRandomWeight(0,250);
         AddTicket();
         $scope.Message = "Please Proceed To Loading/Unloading";
         $scope.Mode = "thanks";
@@ -133,7 +139,8 @@ app.controller('DataController', function ($scope) {
     };
     
     $scope.GetGrossWeight = function(){
-        Scales.GetGross("A", function(result) {$scope.CurrentWeight = result; }, function(msg) { gross = 0;});
+        //Scales.GetGross("A", function(result) {$scope.CurrentWeight = result; }, function(msg) { gross = 0;});
+        $scope.CurrentWeight = 50000 + getRandomWeight(0,250);
     }
     
 
@@ -219,8 +226,9 @@ app.controller('DataController', function ($scope) {
         try
         {
           var str = "{0} {1}";
-            Scales.GetGross("A", function(result) { gross = result; }, function(msg) { gross = -1; });
-            $scope.CurrentWeight = gross;
+            //Scales.GetGross("A", function(result) { gross = result; }, function(msg) { gross = -1; });
+            //$scope.CurrentWeight = gross;
+            $scope.CurrentWeight = 30000 + (getRandomWeight(0,250) * 20);
         } catch (e) {
           alert(e);
         }  
