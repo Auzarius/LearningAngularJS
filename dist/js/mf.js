@@ -19,8 +19,10 @@ app.controller('DataController', ["$scope", function ($scope) {
     $scope.CurrentWeight = 0.00;
     $scope.Directions = ['Inbound','Outbound'];
     
-    var getRandomWeight = function (min, max) {
-        return Math.floor(Math.random()*(max-min+1)+min);
+    var getRandomWeight = function (variance, division) {
+      var min = 0;
+      var max = variance / division;
+      return Math.floor(Math.random() * (max - min + 1) + min) * division;
     };
     //Button Click Methods For Pages
     
@@ -87,9 +89,8 @@ app.controller('DataController', ["$scope", function ($scope) {
         if(isValid)
         {
             //$scope.Ticket.OutWeight = $scope.CurrentWeight;
-            $scope.Ticket.OutWeight = parseInt(50000 + getRandomWeight(0,250) * 20);
+            $scope.Ticket.OutWeight = 50000 + getRandomWeight(10000, 20);
             $scope.Ticket.InWeight = $scope.Ticket.Inbound;
-            //$scope.Ticket.InWeight = parseInt(30000 + getRandomWeight(0,250) * 20);
 
             if ($scope.Ticket.InWeight > $scope.Ticket.OutWeight) {
                 $scope.Ticket.Gross = $scope.Ticket.InWeight;
@@ -109,7 +110,6 @@ app.controller('DataController', ["$scope", function ($scope) {
 
     $scope.saveInboundClick = function () {
         $scope.Ticket.InWeight = $scope.CurrentWeight;
-        //$scope.Ticket.InWeight = 30000 + (getRandomWeight(0,250) * 20);
         AddTicket();
         $scope.Message = "Please Proceed To Loading/Unloading";
         $scope.Mode = "thanks";
@@ -228,7 +228,7 @@ app.controller('DataController', ["$scope", function ($scope) {
           var str = "{0} {1}";
             //Scales.GetGross("A", function(result) { gross = result; }, function(msg) { gross = -1; });
             //$scope.CurrentWeight = gross;
-            $scope.CurrentWeight = 30000 + (getRandomWeight(0,250) * 20);
+            $scope.CurrentWeight = 30000 + getRandomWeight(5000, 20);
         } catch (e) {
           alert(e);
         }  
