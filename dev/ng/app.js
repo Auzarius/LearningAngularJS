@@ -88,13 +88,13 @@ app.controller('DataController', function ($scope) {
         {
             //$scope.Ticket.OutWeight = $scope.CurrentWeight;
             $scope.Ticket.OutWeight = parseInt(50000 + getRandomWeight(0,250) * 20);
-            //$scope.Ticket.InWeight = $scope.Ticket.Inbound;
-            $scope.Ticket.InWeight = parseInt(30000 + getRandomWeight(0,250) * 20);
+            $scope.Ticket.InWeight = $scope.Ticket.Inbound;
+            //$scope.Ticket.InWeight = parseInt(30000 + getRandomWeight(0,250) * 20);
 
             if ($scope.Ticket.InWeight > $scope.Ticket.OutWeight) {
                 $scope.Ticket.Gross = $scope.Ticket.InWeight;
                 $scope.Ticket.Tare = $scope.Ticket.OutWeight;
-        }
+            }
             else {
                 $scope.Ticket.Gross = $scope.Ticket.OutWeight;
                 $scope.Ticket.Tare = $scope.Ticket.InWeight;
@@ -108,8 +108,8 @@ app.controller('DataController', function ($scope) {
     };
 
     $scope.saveInboundClick = function () {
-        //$scope.Ticket.InWeight = $scope.CurrentWeight;
-        $scope.Ticket.InWeight = 30000 + getRandomWeight(0,250);
+        $scope.Ticket.InWeight = $scope.CurrentWeight;
+        //$scope.Ticket.InWeight = 30000 + (getRandomWeight(0,250) * 20);
         AddTicket();
         $scope.Message = "Please Proceed To Loading/Unloading";
         $scope.Mode = "thanks";

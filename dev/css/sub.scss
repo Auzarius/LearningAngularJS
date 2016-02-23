@@ -153,12 +153,6 @@ form {
 	& .mf-field {
 		padding: 1em;
 		border: 1px solid #CCC;
-		
-		& select, input[type="text"] {
-			position: relative;
-			left: -0.6em;
-			width: 97%;
-		}
 	}
 }
 

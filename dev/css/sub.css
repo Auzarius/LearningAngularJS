@@ -99,10 +99,6 @@ form label {
 .mf-field-group .mf-field {
   padding: 1em;
   border: 1px solid #CCC; }
-  .mf-field-group .mf-field select, .mf-field-group .mf-field input[type="text"] {
-    position: relative;
-    left: -0.6em;
-    width: 97%; }
 
 @media screen and (min-width: 701px) {
   .container {
