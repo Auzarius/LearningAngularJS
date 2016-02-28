@@ -2,6 +2,7 @@ var gulp 		= require("gulp"),
 	babel 		= require("gulp-babel"),
 	concat  	= require("gulp-concat"),
 	connect		= require("gulp-connect"),
+	beautify	= require("gulp-cssbeautify"),
 	cssnano		= require("gulp-cssnano"),
 	jshint		= require("gulp-jshint"),
 	ngAnnotate  = require("gulp-ng-annotate"),
@@ -46,6 +47,7 @@ gulp.task('sass', function() {
 gulp.task('mini-css', function() {
 	return gulp.src('./dev/css/**/*.css')
 		.pipe(plumber())
+		.pipe(beautify())
 		.pipe(sourcemaps.init())
 		.pipe(cssnano())
 		.pipe(rename({extname: ".min.css"}))
